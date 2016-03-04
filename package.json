@@ -1,0 +1,24 @@
+{
+  "name": "roundabout.css",
+  "version": "1.0.0",
+  "description": "A CSS3 only carousel.",
+  "main": "roundabout.css",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/josiahdahl/roundabout.css.git"
+  },
+  "keywords": [
+    "CSS3",
+    "carousel",
+    "roundabout"
+  ],
+  "author": "Josiah Dahl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josiahdahl/roundabout.css/issues"
+  },
+  "homepage": "https://github.com/josiahdahl/roundabout.css#readme"
+}
