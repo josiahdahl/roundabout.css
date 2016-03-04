@@ -4,6 +4,7 @@
   "description": "A CSS3 only carousel.",
   "main": "roundabout.css",
   "scripts": {
+    "start": "gulp default",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +21,13 @@
   "bugs": {
     "url": "https://github.com/josiahdahl/roundabout.css/issues"
   },
-  "homepage": "https://github.com/josiahdahl/roundabout.css#readme"
+  "homepage": "https://github.com/josiahdahl/roundabout.css#readme",
+  "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^2.2.0",
+    "node-sass": "^3.4.2"
+  }
 }
