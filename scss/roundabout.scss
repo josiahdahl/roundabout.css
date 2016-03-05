@@ -41,8 +41,9 @@
           // If we're not in the first keyframe
           @else {
             $offset: $startingOffset - ($keyframe * $itemWidth);
-            // Item is not visible if offset < 0
-            @if $offset < 0 {
+
+            // Transition back to end
+            @if $offset < (-1 * $itemWidth) {
               // Set the item's left offset to the end of the line
               left: ($items - $keyframe + $itemNum - 1) * $itemWidth + px;
             }
@@ -67,30 +68,32 @@
   @include slideAnimation($items: $items, $duration: 3s, $itemWidth: 400);
   width: $viewportWidth + px;
   position: relative;
-  overflow: hidden;
-  height: $viewportHeight + px;
-  
+  overflow: hidden;  
+  height: $viewportHeight + px;  
   .roundabout--items {
-    // position: absolute;
-    // overflow-x: hidden;
+    position: relative;
     width: ($items + 1) * $itemWidth + px; // get number of items and desired item width in mixin 
     height: 100%;
   }
   .roundabout--item {
     box-sizing: border-box;
     width: $itemWidth + px;
+    height: $viewportHeight + px;
+    line-height: $viewportHeight + px;
+    
     padding: 10px;
     display: inline-block;
     top: 0;
     position: absolute;
-    // float: left;
+  
   }
   .roundabout--item img {
-    width: 100%;
+    height: 100%;
   }
   .roundabout-items:hover {
     animation-play-state: paused;
   }
+  
 }
 #roundabout {
   @include roundabout($items: 4, $itemWidth: 400, $viewportWidth: 600, $viewportHeight: 250);
