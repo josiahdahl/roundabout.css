@@ -35,9 +35,10 @@
 
   // Use 1% for the quick as possible movements. This number can change as necessary.
   $movementKeyframeSize: 1;
-  $keyframePercent: (100 / ($items)) - (3 * $movementKeyframeSize);
-  // Create the number of keyframes
-  $numberOfKeyframes: $items * 4;
+  // Percentage of the total time the item moves
+  $slideMovementPercent: 100 / $items / 3;
+  // Percentage of the total time the item is stationary
+  $slideStillPercent: 100 / $items / 3 * 2;
   // Total slide width
   $totalSlideWidth: $slideWidth + $slideMargin * 2;
 
@@ -45,6 +46,10 @@
     // Create animation for each item in the carousel
     @keyframes slide-#{$slideNum} {
       $leftPosition: ($slideNum - 1) * ($totalSlideWidth);
+      // Set the last slide position to the left of the first slide
+      @if ($slideNum == $items) {
+        $leftPosition: -1 * $totalSlideWidth;
+      }
       // Starting and Ending Locations
       0%, 100% {
         // exclude the px on 0
@@ -56,54 +61,58 @@
       }
 
       @for $itemNum from 1 through $items {
-        @if ($itemNum == $items and $slideNum != $items) {
-          // This makes the transition only happen on the last slide
-          // Otherwise the percents are all messy
-        } @else {
-          $movementKeyframe: $itemNum * $keyframePercent;
+        //@if ($itemNum == $items and $slideNum != $items) {
+        //  // This makes the transition only happen on the last slide
+        //  // Otherwise the percents are all messy
+        //} @else {
+        $movementKeyframe: ($slideMovementPercent * ($itemNum - 1)) + ($slideStillPercent * $itemNum);
+        // Handle transition to the right
+        // If $leftposition is negative, move to far right => last item start position
+        @if ($leftPosition < 0) {
+          // 2 - Make item transparent
+          #{$movementKeyframe + ($movementKeyframeSize) * 1%} {
+            left: $leftPosition + px;
+            opacity: 0;
+          }
+          // 3 - make item left all the way to the end (last item start position)
+          #{$movementKeyframe + ($movementKeyframeSize * 5) * 1%} {
+            $leftPosition: ($items - 1) * $totalSlideWidth;
+            opacity: 0;
+            left: $leftPosition + px;
+          }
+          // 4 - make item visible
+          #{$movementKeyframe + ($movementKeyframeSize * 10) * 1%} {
+            opacity: 1;
+          }
+        }
+          // If it doesn't have to move, make sure that it stays at the current position while the
+          // slide that is moving is done moving
+        @else {
           #{$movementKeyframe * 1%} {
-            $leftPosition: $leftPosition -  $totalSlideWidth;
             @if ($leftPosition == 0) {
               left: $leftPosition;
             } @else {
               left: $leftPosition + px;
             }
-            opacity: 1;
-          }
-          // Handle transition to end
-          // If $leftposition is negative, move to far right => last item start position
-          @if ($leftPosition < 0) {
-            // 2 - Make item transparent
-            #{$movementKeyframe + ($movementKeyframeSize) * 1%} {
-              opacity: 0;
-            }
-            // 3 - make item left all the way to the end (last item start position)
-            #{$movementKeyframe + ($movementKeyframeSize * 2) * 1%} {
-              $leftPosition: ($items - 1) * $totalSlideWidth;
-              opacity: 0;
-              left: $leftPosition + px;
-            }
-            // 4 - make item visible
-            #{$movementKeyframe + ($movementKeyframeSize * 3) * 1%} {
-              opacity: 1;
-            }
-          }
-            // If it doesn't have to move, make sure that it stays at the current position while the
-            // slide that is moving is done moving
-          @else {
-            #{$movementKeyframe + ($movementKeyframeSize * 3) * 1%} {
-              @if ($leftPosition == 0) {
-                left: $leftPosition;
-              } @else {
-                left: $leftPosition + px;
-              }
-            }
           }
         }
+        // Move slide to the left
+        #{ $movementKeyframe + $slideMovementPercent * 1%} {
+          $leftPosition: $leftPosition -  $totalSlideWidth;
+          @if ($leftPosition == 0) {
+            left: $leftPosition;
+          } @else {
+            left: $leftPosition + px;
+          }
+          opacity: 1;
+        }
       }
+
     }
   }
 }
+
+//}
 
 @mixin roundabout($items, $viewportWidth, $viewportHeight, $duration, $slideWidth, $slideMargin: 0) {
   @include slideAnimation($items: $items, $duration: $duration, $slideWidth: $slideWidth, $slideMargin: $slideMargin);
@@ -133,14 +142,20 @@
   .roundabout-slide img {
     height: 100%;
   }
-  .roundabout-items:hover {
-    animation-play-state: paused;
+  .roundabout-slides:hover {
+    .roundabout-slide {
+      animation-play-state: paused;
+    }
   }
 
   // Create slide selectors
   @for $itemNum from 1 through $items {
     .roundabout-slide:nth-child(#{$itemNum}) {
-      left: ($itemNum - 1) * ($slideWidth + $slideMargin * 2) + px;
+      @if ($itemNum == $items) {
+        left: -1 * ($slideWidth + $slideMargin * 2) + px;
+      } @else {
+        left: ($itemNum - 1) * ($slideWidth + $slideMargin * 2) + px;
+      }
       animation-name: slide-#{$itemNum};
       @include animationSettings($items, $duration);
     }
