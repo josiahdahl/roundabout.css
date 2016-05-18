@@ -23,100 +23,112 @@
   height: 250px; }
 
 @-webkit-keyframes slide-1 {
-  0% {
-    left: 0px; }
+  0% { }
   25% {
-    left: -400px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   50% {
-    left: 800px; }
+    opacity: 0; }
   75% {
-    left: 400px; }
+    opacity: 0; }
   100% {
-    left: 0px; } }
+    opacity: 0; } }
 
 @keyframes slide-1 {
-  0% {
-    left: 0px; }
+  0% { }
   25% {
-    left: -400px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   50% {
-    left: 800px; }
+    opacity: 0; }
   75% {
-    left: 400px; }
+    opacity: 0; }
   100% {
-    left: 0px; } }
+    opacity: 0; } }
 
 @-webkit-keyframes slide-2 {
-  0% {
-    left: 400px; }
+  0% { }
   25% {
-    left: 0px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   50% {
-    left: -400px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   75% {
-    left: 800px; }
+    opacity: 0; }
   100% {
-    left: 400px; } }
+    opacity: 0; } }
 
 @keyframes slide-2 {
-  0% {
-    left: 400px; }
+  0% { }
   25% {
-    left: 0px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   50% {
-    left: -400px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   75% {
-    left: 800px; }
+    opacity: 0; }
   100% {
-    left: 400px; } }
+    opacity: 0; } }
 
 @-webkit-keyframes slide-3 {
-  0% {
-    left: 800px; }
+  0% { }
   25% {
-    left: 400px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   50% {
-    left: 0px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   75% {
-    left: -400px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   100% {
-    left: 800px; } }
+    opacity: 0; } }
 
 @keyframes slide-3 {
-  0% {
-    left: 800px; }
+  0% { }
   25% {
-    left: 400px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   50% {
-    left: 0px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   75% {
-    left: -400px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   100% {
-    left: 800px; } }
+    opacity: 0; } }
 
 @-webkit-keyframes slide-4 {
-  0% {
-    left: 1200px; }
+  0% { }
   25% {
-    left: 800px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   50% {
-    left: 400px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   75% {
-    left: 0px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   100% {
-    left: -400px; } }
+    -webkit-transform: translateX();
+            transform: translateX(); } }
 
 @keyframes slide-4 {
-  0% {
-    left: 1200px; }
+  0% { }
   25% {
-    left: 800px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   50% {
-    left: 400px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   75% {
-    left: 0px; }
+    -webkit-transform: translateX();
+            transform: translateX(); }
   100% {
-    left: -400px; } }
+    -webkit-transform: translateX();
+            transform: translateX(); } }
   #roundabout .roundabout--item:nth-child(1) {
     left: 0px;
     -webkit-animation-name: slide-1;
