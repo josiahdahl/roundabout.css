@@ -22,18 +22,6 @@
   overflow: hidden;
   height: 250px; }
 
-@-webkit-keyframes slide-1 {
-  0% {
-    left: 0px; }
-  25% {
-    left: -400px; }
-  50% {
-    left: 800px; }
-  75% {
-    left: 400px; }
-  100% {
-    left: 0px; } }
-
 @keyframes slide-1 {
   0% {
     left: 0px; }
@@ -45,18 +33,6 @@
     left: 400px; }
   100% {
     left: 0px; } }
-
-@-webkit-keyframes slide-2 {
-  0% {
-    left: 400px; }
-  25% {
-    left: 0px; }
-  50% {
-    left: -400px; }
-  75% {
-    left: 800px; }
-  100% {
-    left: 400px; } }
 
 @keyframes slide-2 {
   0% {
@@ -70,18 +46,6 @@
   100% {
     left: 400px; } }
 
-@-webkit-keyframes slide-3 {
-  0% {
-    left: 800px; }
-  25% {
-    left: 400px; }
-  50% {
-    left: 0px; }
-  75% {
-    left: -400px; }
-  100% {
-    left: 800px; } }
-
 @keyframes slide-3 {
   0% {
     left: 800px; }
@@ -93,18 +57,6 @@
     left: -400px; }
   100% {
     left: 800px; } }
-
-@-webkit-keyframes slide-4 {
-  0% {
-    left: 1200px; }
-  25% {
-    left: 800px; }
-  50% {
-    left: 400px; }
-  75% {
-    left: 0px; }
-  100% {
-    left: -400px; } }
 
 @keyframes slide-4 {
   0% {
@@ -119,52 +71,32 @@
     left: -400px; } }
   #roundabout .roundabout--item:nth-child(1) {
     left: 0px;
-    -webkit-animation-name: slide-1;
-            animation-name: slide-1;
-    -webkit-animation-duration: 12s;
-            animation-duration: 12s;
-    -webkit-animation-delay: 3s;
-            animation-delay: 3s;
-    -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
-    -webkit-animation-timing-function: ease;
-            animation-timing-function: ease; }
+    animation-name: slide-1;
+    animation-duration: 12s;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease; }
   #roundabout .roundabout--item:nth-child(2) {
     left: 400px;
-    -webkit-animation-name: slide-2;
-            animation-name: slide-2;
-    -webkit-animation-duration: 12s;
-            animation-duration: 12s;
-    -webkit-animation-delay: 3s;
-            animation-delay: 3s;
-    -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
-    -webkit-animation-timing-function: ease;
-            animation-timing-function: ease; }
+    animation-name: slide-2;
+    animation-duration: 12s;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease; }
   #roundabout .roundabout--item:nth-child(3) {
     left: 800px;
-    -webkit-animation-name: slide-3;
-            animation-name: slide-3;
-    -webkit-animation-duration: 12s;
-            animation-duration: 12s;
-    -webkit-animation-delay: 3s;
-            animation-delay: 3s;
-    -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
-    -webkit-animation-timing-function: ease;
-            animation-timing-function: ease; }
+    animation-name: slide-3;
+    animation-duration: 12s;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease; }
   #roundabout .roundabout--item:nth-child(4) {
     left: 1200px;
-    -webkit-animation-name: slide-4;
-            animation-name: slide-4;
-    -webkit-animation-duration: 12s;
-            animation-duration: 12s;
-    -webkit-animation-delay: 3s;
-            animation-delay: 3s;
-    -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
-    -webkit-animation-timing-function: ease;
-            animation-timing-function: ease; }
+    animation-name: slide-4;
+    animation-duration: 12s;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease; }
   #roundabout .roundabout--items {
     position: relative;
     width: 2000px;
@@ -181,5 +113,4 @@
   #roundabout .roundabout--item img {
     height: 100%; }
   #roundabout .roundabout-items:hover {
-    -webkit-animation-play-state: paused;
-            animation-play-state: paused; }
+    animation-play-state: paused; }
