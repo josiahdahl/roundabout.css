@@ -30,26 +30,69 @@
   @for $itemNum from 1 through $items {
     // Create animation for each slide
     @keyframes slide-#{$itemNum} {
+      // // Check for opacity requirement (for sliding to the far right)
+      // $makeInvisible: false;
+      // $keyframePercentInvisible: false;
+      // $keyframePercentTranslateRight: false;
+      // 
+      // // Create special keyframes for moving to end of queue
+      // @if $makeInvisible {
+      //   #{$keyframePercentInvisible} {
+      //     opacity: 0;
+      //   }
+      //   #{$keyframePercentTranslateRight} {
+      //     transform: translateX(($items - 1) * $itemWidth + px);
+      // 
+      //   }
+      // }
+      
+      
       // Create each keyframe
       @for $keyframe from 0 through $items {
         #{$keyframe * $keyframePercent * 1%} {
           $startingOffset: ($itemNum - 1) * $itemWidth;
           // Set to starting offset for first (0) keyframe
           @if ($keyframe == 0) {
-            left: $startingOffset + px;
+            // left: $startingOffset + px;
+            // left: $startingOffset + px;
           }
           // If we're not in the first keyframe
           @else {
-            $offset: $startingOffset - ($keyframe * $itemWidth);
-
-            // Transition back to end
-            @if $offset < (-1 * $itemWidth) {
-              // Set the item's left offset to the end of the line
-              left: ($items - $keyframe + $itemNum - 1) * $itemWidth + px;
+            $offset: -1 * $keyframe * $itemWidth;
+            // If our offset is going to be greater than keyframe * 100%, go opaque
+            // If our offset is going to be greater than keyframe * 200%, go to end
+            @if $offset < -1 * $itemNum * $itemWidth {
+              opacity: 0;
+            }
+            @else if $offset < -2 * $itemNum * $itemWidth {
+              opacity: 1;
+              transform: translateX(100%);
             }
             @else {
-              left: $offset + px;
+              transform: translateX(200%);
             }
+            
+            // $offset: $startingOffset - ($keyframe * $itemWidth);
+            // Set the keyframe to make it invisible and also the keyframe to
+            // At this point the item is invisible
+            // @if $offset < (-1 * $itemWidth) {
+            //   $makeInvisible: true;
+            //   $keyframePercentInvisible: ($keyframe * $keyframePercent + 1) * 1%;
+            //   $keyframePercentTranslateRight: $keyframePercentInvisible + 1;
+            //   
+            // }
+            // Transition back to end
+            // @if $offset < (-1 * $itemWidth) {
+            //   // Set the item's left offset to the end of the line
+            //   // left: ($items - $keyframe + $itemNum - 1) * $itemWidth + px;
+            //   // transform: translateX(($items - $keyframe + $itemNum - 1) * $itemWidth + px);
+            // }
+            // @else {
+              // left: $offset + px;
+              // transform: translateX($offset + px);
+              
+              // opacity: 1;
+            // }
           }
         }
       }
@@ -57,7 +100,8 @@
   }
   // Create slide selectors
   @for $itemNum from 1 through $items {
-    .roundabout--item:nth-child(#{$itemNum}) {
+    .roundabout-slide:nth-child(#{$itemNum}) {
+      // transform: translateX(($itemNum - 1) * $itemWidth + px);
       left: ($itemNum - 1) * $itemWidth + px;
       animation-name: slide-#{$itemNum};
       @include animationSettings($items, $duration);
@@ -68,26 +112,26 @@
   @include slideAnimation($items: $items, $duration: 3s, $itemWidth: 400);
   width: $viewportWidth + px;
   position: relative;
-  overflow: hidden;  
+  overflow: hidden;
   height: $viewportHeight + px;  
-  .roundabout--items {
+  .roundabout-slides {
     position: relative;
     width: ($items + 1) * $itemWidth + px; // get number of items and desired item width in mixin 
     height: 100%;
   }
-  .roundabout--item {
+  .roundabout-slide {
     box-sizing: border-box;
     width: $itemWidth + px;
     height: $viewportHeight + px;
     line-height: $viewportHeight + px;
-    
+    background-color: #fff;
     padding: 10px;
     display: inline-block;
     top: 0;
     position: absolute;
   
   }
-  .roundabout--item img {
+  .roundabout-slide img {
     height: 100%;
   }
   .roundabout-items:hover {
