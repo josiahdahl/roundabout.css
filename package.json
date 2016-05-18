@@ -1,6 +1,6 @@
 {
   "name": "roundabout.css",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A CSS3 only carousel.",
   "main": "roundabout.css",
   "scripts": {
@@ -17,7 +17,7 @@
     "roundabout"
   ],
   "author": "Josiah Dahl",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/josiahdahl/roundabout.css/issues"
   },
@@ -26,6 +26,7 @@
     "browser-sync": "^2.11.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
+    "gulp-cssnano": "^2.1.2",
     "gulp-plumber": "^1.1.0",
     "gulp-sass": "^2.2.0",
     "node-sass": "^3.4.2"

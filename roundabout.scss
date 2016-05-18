@@ -1,44 +1,32 @@
-/*
-  Carousel structure as follows:
-    div#carousel
-    -    width of container, height dictated by height of tallest image
-    -    make sure that either....images are the same height, or somehow center align them
-      div.item-container
-      -    items live here, have the same padding/border/background/whatever
-      -    all floated left
-      div.controls
-      -    Control items, however it works etc
 
 
-
+/**
+ *  Applies animation settings
+ *
+ *  $duration - Total animation time
 */
-/*
-  Get the number of items, at each step, slide left until out of viewport, then translate
-  to end of row
-*/
-// @include slideAnimation(5, 600, 400);
-@mixin animationSettings($items, $duration) {
-  animation-duration: $items * $duration;
+@mixin animationSettings($duration) {
+  animation-duration: $duration + s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
 
-@mixin slideAnimation($items, $duration, $slideWidth, $slideMargin) {
-
-  /**
-  * Keyframes operate like so:
-  * 1. Slide all items to the left
-  * 2. Make leftmost item transparent (Quick as possible)
-  * 3. Move leftmost item to far right (quick as possible)
-  * 4. Make rightmost item opaque (quick as possible)
-  */
-
+/**
+ *  Creates animations for the slides
+ *
+ *  $items          The Number of items in the carousel
+ *  $transitionTime How long the transition takes between slides (seconds)
+ *  $visibleTime    How long each slide pauses (seconds)
+ *  $slideWidth     How wide each slide is
+ *  $slideMargin    Margin on each slide
+ */
+@mixin slideAnimation($items, $transitionTime, $visibleTime, $slideWidth: 400, $slideMargin: 0) {
   // Use 1% for the quick as possible movements. This number can change as necessary.
   $movementKeyframeSize: 1;
   // Percentage of the total time the item moves
-  $slideMovementPercent: 100 / $items / 3;
+  $slideMovementPercent: 100 / $items * ($transitionTime / ($transitionTime + $visibleTime));
   // Percentage of the total time the item is stationary
-  $slideStillPercent: 100 / $items / 3 * 2;
+  $slideStillPercent: 100 / $items * ($visibleTime / ($transitionTime + $visibleTime));
   // Total slide width
   $totalSlideWidth: $slideWidth + $slideMargin * 2;
 
@@ -75,13 +63,13 @@
             opacity: 0;
           }
           // 3 - make item left all the way to the end (last item start position)
-          #{$movementKeyframe + ($movementKeyframeSize * 5) * 1%} {
+          #{$movementKeyframe + ($movementKeyframeSize * 2) * 1%} {
             $leftPosition: ($items - 1) * $totalSlideWidth;
             opacity: 0;
             left: $leftPosition + px;
           }
           // 4 - make item visible
-          #{$movementKeyframe + ($movementKeyframeSize * 10) * 1%} {
+          #{$movementKeyframe + ($movementKeyframeSize * 3) * 1%} {
             opacity: 1;
           }
         }
@@ -112,10 +100,23 @@
   }
 }
 
-//}
+/**
+ *  The entry mixin
+ *
+ *  $items            The number of items in the carousel
+ *  $viewportWidth    How width is the viewport
+ *  $viewportHeight   How high is the viewport
+ *  $slideWidth       How wide each slide is. Recommended right now is the viewport width
+ *  $transitionTime   How long it takes to go to a new slide
+ *  $visibleTime      How long the slide stays visible (still)
+ *  $slideMargin      Margin left and right on slide. Probably doesn't need to be added
+ */
 
-@mixin roundabout($items, $viewportWidth, $viewportHeight, $duration, $slideWidth, $slideMargin: 0) {
-  @include slideAnimation($items: $items, $duration: $duration, $slideWidth: $slideWidth, $slideMargin: $slideMargin);
+@mixin roundabout($items, $viewportWidth, $viewportHeight, $slideWidth, $transitionTime: 1, $visibleTime: 3, $slideMargin: 0) {
+  @include slideAnimation($items: $items, $transitionTime: $transitionTime, $visibleTime: $visibleTime, $slideWidth: $slideWidth, $slideMargin: $slideMargin);
+
+  $duration: $items * $transitionTime * $visibleTime;
+
   width: $viewportWidth + px;
   position: relative;
   overflow: hidden;
@@ -133,21 +134,11 @@
     width: $slideWidth + px;
     height: $viewportHeight + px;
     margin: 0 $slideMargin;
-    padding: 10px;
     display: inline-block;
     top: 0;
     position: absolute;
     text-align: center;
   }
-  .roundabout-slide img {
-    height: 100%;
-  }
-  .roundabout-slides:hover {
-    .roundabout-slide {
-      animation-play-state: paused;
-    }
-  }
-
   // Create slide selectors
   @for $itemNum from 1 through $items {
     .roundabout-slide:nth-child(#{$itemNum}) {
@@ -157,12 +148,7 @@
         left: ($itemNum - 1) * ($slideWidth + $slideMargin * 2) + px;
       }
       animation-name: slide-#{$itemNum};
-      @include animationSettings($items, $duration);
+      @include animationSettings($duration);
     }
   }
-
-}
-
-#roundabout {
-  @include roundabout($items: 3, $viewportWidth: 600, $viewportHeight: 250, $duration: 5s, $slideWidth: 600);
 }

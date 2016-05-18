@@ -1,0 +1,27 @@
+@import '../roundabout.scss';
+
+a {
+  text-decoration: none;
+}
+body {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.roundabout {
+  @include roundabout($items: 10, $viewportWidth: 600, $viewportHeight: 250, $transitionTime: 1, $visibleTime: 3, $slideWidth: 600);
+  border: 2px solid #333;
+  margin-bottom: 1.5rem;
+
+  .roundabout-slide img {
+    height: 100%;
+  }
+  .roundabout-slide {
+    padding: 10px;
+  }
+  .roundabout-slides:hover {
+    .roundabout-slide {
+      animation-play-state: paused;
+    }
+  }
+}
