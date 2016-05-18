@@ -38,6 +38,7 @@ Mixin:
 
 ##Todo
 * Enable centering of slides (Show multiple slides at once)
+* Explore using transitions instead of keyframes for animation
 
 
 ##Changelog
